@@ -11,7 +11,7 @@ import { decrement, increment } from "../app/reducer/userSlice";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'Pharmserv-UI';
+  title = 'PharmServ';
   count = injectSelector((state: RootState) => state.user.value);
   dispatch = injectDispatch();
   increment = increment;
