@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { RootState } from "../app/store";
-import { injectSelector, injectDispatch } from "@reduxjs/angular-redux";
-import { decrement, increment } from "../app/reducer/userSlice";
+
 
 @Component({
   selector: 'app-root',
@@ -12,8 +10,4 @@ import { decrement, increment } from "../app/reducer/userSlice";
 })
 export class AppComponent {
   title = 'PharmServ';
-  count = injectSelector((state: RootState) => state.user.value);
-  dispatch = injectDispatch();
-  increment = increment;
-  decrement = decrement;
 }
