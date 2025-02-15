@@ -6,6 +6,10 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { reducers } from './reducer';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideStore(reducers)
-  , provideStoreDevtools()]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideStore(reducers),
+    provideStoreDevtools(),
+  ],
 };
