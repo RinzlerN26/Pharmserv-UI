@@ -91,11 +91,11 @@
   <div class="content">
     <div class="">
       <h1>{{ title }}</h1>
-      <!-- <div class="d-flex flex-row align-items-center justify-content-center mt-2">
-        <button type="button" class="btn btn-primary mx-1" (click)="dispatch(increment())">+</button>
-        {{count()}} 
-        <button type="button" class="btn btn-primary mx-1" (click)="dispatch(decrement())">-</button>
-      </div> -->
+      <div class="d-flex flex-row align-items-center justify-content-center mt-2">
+        <button type="button" class="btn btn-primary mx-1" (click)="increment()">+</button>
+        {{ counter$ | async }} 
+        <button type="button" class="btn btn-primary mx-1" (click)="decrement()">-</button>
+      </div>
     </div>
   </div>
 </main>
