@@ -2,17 +2,18 @@
     <div class="sign-in-title">
      Sign In
     </div>
-    <form class="mt-2 sign-in-form">
+    <form class="mt-2 sign-in-form" (submit)="onLogin(); $event.preventDefault();">
         <div class="mb-2">
-         <label class="form-label">Email</label>
-         <input type="email" class="form-control">
+         <label class="form-label">UserId</label>
+         <input type="text" class="form-control" [(ngModel)]="userStringId" name="userStringId">
         </div>
         <div class="mb-2">
            <label class="form-label">Password</label>
-           <input type="email" class="form-control">
+           <input type="password" class="form-control" [(ngModel)]="userPass" name="userPass">
         </div>
+        <div *ngIf="errorMessage" class="text-danger">{{ errorMessage }}</div>
         <div class="form-btn d-flex flex-row justify-content-center mt-3">
-            <button type="submit" class="btn btn-primary">Sign In</button> 
+            <button type="submit" class="btn btn-primary">Sign In</button>             
         </div>       
     </form>
 </div>
