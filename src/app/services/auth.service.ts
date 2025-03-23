@@ -13,4 +13,12 @@ export class AuthService {
   login(userStringId: string, userPass: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { userStringId, userPass });
   }
+
+  setToken(token: string) {
+    sessionStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return sessionStorage.getItem('token');
+  }
 }
