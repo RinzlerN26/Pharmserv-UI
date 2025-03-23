@@ -10,7 +10,8 @@
             <a class="nav-link active" aria-current="page" href="/pharma">Pharmaceuticals</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/signin">Sign In</a>
+            <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" href="/signin">Sign In</a>
+            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout()"  href="#">Signed In</a>
           </li>
         </ul>
       </div>

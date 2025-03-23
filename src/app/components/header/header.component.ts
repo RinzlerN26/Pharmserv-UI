@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   imports: [CommonModule],
@@ -8,9 +9,26 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.isUserIdPresent();
+  }
+
+  isUserIdPresent(): boolean {
+    if (sessionStorage.getItem('userId')) {
+      return true;
+    }
+    return false;
+  }
 
   isLoggedIn(): boolean {
     return !!this.authService.getToken();
+  }
+
+  logout() {
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('userId');
+    this.router.navigate(['/signin']);
   }
 }
