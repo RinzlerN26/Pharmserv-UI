@@ -7,10 +7,38 @@ import { TableComponent } from '../../components/table/table.component';
   styleUrl: './pharma.component.scss',
 })
 export class PharmaComponent {
-  columns: string[] = ['id', 'name', 'price'];
+  columns: string[] = [
+    'Id',
+    'Medicine',
+    'Company',
+    'Purchase Rate',
+    'Dealer',
+    'Expiry',
+  ];
   pharmaData = [
-    { id: 1, name: 'Paracetamol', price: 10 },
-    { id: 2, name: 'Ibuprofen', price: 15 },
-    { id: 3, name: 'Aspirin', price: 12 },
+    {
+      Id: 1,
+      Medicine: 'M',
+      Company: 'A',
+      'Purchase Rate': 10,
+      Dealer: 'B',
+      Expiry: 'YYYY-MM-DD',
+    },
+    {
+      Id: 2,
+      Medicine: 'M',
+      Company: 'A',
+      'Purchase Rate': 10,
+      Dealer: 'B',
+      Expiry: 'YYYY-MM-DD',
+    },
+    {
+      Id: 3,
+      Medicine: 'M',
+      Company: 'A',
+      'Purchase Rate': 10,
+      Dealer: 'B',
+      Expiry: 'YYYY-MM-DD',
+    },
   ];
 }
