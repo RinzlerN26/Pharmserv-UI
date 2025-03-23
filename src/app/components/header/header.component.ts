@@ -26,9 +26,9 @@ export class HeaderComponent {
     return !!this.authService.getToken();
   }
 
-  logout() {
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('userId');
+  logout(event: Event) {
+    event.preventDefault();
+    sessionStorage.clear();
     this.router.navigate(['/signin']);
   }
 }
