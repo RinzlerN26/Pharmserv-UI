@@ -21,4 +21,17 @@ export class AuthService {
   getToken(): string | null {
     return sessionStorage.getItem('token');
   }
+
+  getUserIdFromToken() {
+    const token = sessionStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const tokenParts = token.split('.');
+      const payload = JSON.parse(atob(tokenParts[1]));
+      sessionStorage.setItem('userId', payload.sub);
+    } catch (error) {
+      console.error('Invalid token', error);
+    }
+  }
 }

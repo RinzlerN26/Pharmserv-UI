@@ -22,6 +22,7 @@ export class SigninComponent {
     this.authService.login(this.userStringId, this.userPass).subscribe({
       next: (response) => {
         this.authService.setToken(response.token);
+        this.authService.getUserIdFromToken();
         console.log('Login successful!', response);
         alert('Login Successful!');
         this.router.navigate(['/pharma']);
