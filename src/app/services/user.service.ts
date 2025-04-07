@@ -6,14 +6,14 @@ import { environment } from '../../environments/environments';
 @Injectable({
   providedIn: 'root',
 })
-export class PharmaService {
-  private apiUrl = `${environment.apiUrl}/pharma`;
+export class UserService {
+  private apiUrl = `${environment.apiUrl}/user`;
 
   constructor(private http: HttpClient) {}
 
-  getPharmaEntries(userIntId: Number): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${this.apiUrl}/get-pharma-entries/${userIntId}`
+  getUserDetails(userStringId: String | null): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/get-user-details/${userStringId}`
     );
   }
 }
