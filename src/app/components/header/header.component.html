@@ -11,7 +11,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" href="/signin">Sign In</a>
-            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)"  href="#">Signed In</a>
+            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)"  href="#">{{userName$ | async}}</a>
           </li>
         </ul>
       </div>
