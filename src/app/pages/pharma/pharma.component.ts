@@ -22,7 +22,6 @@ export class PharmaComponent {
   pharmaData: any[] = [];
 
   ngOnInit() {
-    console.log(sessionStorage.getItem('userIntId'));
     if (sessionStorage.getItem('userIntId')) {
       const userIntId = parseInt(
         sessionStorage.getItem('userIntId') || '0',
