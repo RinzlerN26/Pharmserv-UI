@@ -18,32 +18,7 @@ export class PharmaComponent {
     'Dealer',
     'Expiry',
   ];
-  // pharmaData = [
-  //   {
-  //     Id: 1,
-  //     Medicine: 'M',
-  //     Company: 'A',
-  //     'Purchase Rate': 10,
-  //     Dealer: 'B',
-  //     Expiry: 'YYYY-MM-DD',
-  //   },
-  //   {
-  //     Id: 2,
-  //     Medicine: 'M',
-  //     Company: 'A',
-  //     'Purchase Rate': 10,
-  //     Dealer: 'B',
-  //     Expiry: 'YYYY-MM-DD',
-  //   },
-  //   {
-  //     Id: 3,
-  //     Medicine: 'M',
-  //     Company: 'A',
-  //     'Purchase Rate': 10,
-  //     Dealer: 'B',
-  //     Expiry: 'YYYY-MM-DD',
-  //   },
-  // ];
+
   pharmaData: any[] = [];
 
   ngOnInit() {
