@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -15,7 +16,11 @@ export class SigninComponent {
   userPass = '';
   errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   onLogin() {
     this.errorMessage = '';
@@ -25,6 +30,18 @@ export class SigninComponent {
         this.authService.getUserIdFromToken();
         console.log('Login successful!', response);
         alert('Login Successful!');
+        if (sessionStorage.getItem('userId')) {
+          const userStringId = sessionStorage.getItem('userId');
+          this.userService.getUserDetails(userStringId).subscribe({
+            next: (response) => {
+              sessionStorage.setItem('userIntId', response?.userIntId);
+              sessionStorage.setItem('userName', response?.userName);
+            },
+            error: (err) => {
+              console.error('Error Fetching User Details', err);
+            },
+          });
+        }
         this.router.navigate(['/pharma']);
       },
       error: (err) => {
