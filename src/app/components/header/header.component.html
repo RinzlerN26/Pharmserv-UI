@@ -4,14 +4,14 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="/">PharmServ</a>
+        <a class="navbar-brand" routerLink="/">PharmServ</a>
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item" *ngIf="isLoggedIn()">
-            <a class="nav-link active" aria-current="page" href="/pharma">Pharmaceuticals</a>
+            <a class="nav-link active" aria-current="page" routerLink="/pharma">Pharmaceuticals</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" href="/signin">Sign In</a>
-            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)"  href="#">{{userName$ | async}}</a>
+            <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" routerLink="/signin">Sign In</a>
+            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)" href="#">{{userName$ | async}}</a>
           </li>
         </ul>
       </div>
