@@ -36,13 +36,13 @@ export class SigninComponent {
             next: (response) => {
               sessionStorage.setItem('userIntId', response?.userIntId);
               sessionStorage.setItem('userName', response?.userName);
+              this.router.navigate(['/pharma']);
             },
             error: (err) => {
               console.error('Error Fetching User Details', err);
             },
           });
         }
-        this.router.navigate(['/pharma']);
       },
       error: (err) => {
         this.errorMessage = 'Invalid credentials';
