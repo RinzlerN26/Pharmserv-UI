@@ -1,1 +1,1 @@
-<app-table [displayedColumns]="columns" [data]="pharmaData" [showDelete]="true"></app-table>
+<app-table [displayedColumns]="columns" [data]="pharmaData" [showDelete]="true" (delete)="handleDeleteEntry($event)"></app-table>
