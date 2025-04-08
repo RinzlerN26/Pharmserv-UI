@@ -17,6 +17,7 @@ export class PharmaComponent {
     'Purchase Rate',
     'Dealer',
     'Expiry',
+    'Delete Entry',
   ];
 
   pharmaData: any[] = [];
@@ -37,6 +38,7 @@ export class PharmaComponent {
             'Purchase Rate': item.purchaseRate,
             Dealer: item.dealerName,
             Expiry: item.expiryDate,
+            pharmaId: item.pharmaId,
           }));
         },
         error: (err) => {

@@ -7,7 +7,14 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of data">
-        <td *ngFor="let column of displayedColumns">{{ row[column] }}</td>
+        <td *ngFor="let column of displayedColumns">
+          <ng-container *ngIf="column === 'Delete Entry' && showDelete; else cellData">
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </ng-container>
+          <ng-template #cellData>
+            {{ row[column] }}
+          </ng-template>
+        </td>
       </tr>
     </tbody>
   </table>

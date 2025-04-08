@@ -15,8 +15,8 @@ export const userReducer = createReducer(
   initialState,
   on(setUserDetails, (state, { userName, userEmail }) => ({
     ...state,
-    userName,
-    userEmail,
+    userName: userName,
+    userEmail: userEmail,
   })),
   on(revertUserDetails, () => initialState)
 );

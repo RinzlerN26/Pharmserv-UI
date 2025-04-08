@@ -10,4 +10,5 @@ import { CommonModule } from '@angular/common';
 export class TableComponent {
   @Input() displayedColumns: string[] = [];
   @Input() data: any[] = [];
+  @Input() showDelete: boolean = false;
 }
