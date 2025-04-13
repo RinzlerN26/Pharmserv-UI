@@ -54,7 +54,6 @@ export class PharmaComponent {
 
   handleUpdateEntry(row: any) {
     this.selectedRow = { ...row };
-    console.log(this.selectedRow);
     const modalElement = document.getElementById('updateModal');
     if (modalElement) {
       const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
