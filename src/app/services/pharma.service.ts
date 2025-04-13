@@ -22,4 +22,15 @@ export class PharmaService {
       `${this.apiUrl}/delete-pharma-entry/${userIntId}/${pharmaIntId}`
     );
   }
+
+  updatePharmaEntry(
+    userIntId: Number,
+    pharmaIntId: Number,
+    pharmaDetails: Object
+  ) {
+    return this.http.patch(
+      `${this.apiUrl}/update-pharma-entry/${userIntId}/${pharmaIntId}`,
+      pharmaDetails
+    );
+  }
 }

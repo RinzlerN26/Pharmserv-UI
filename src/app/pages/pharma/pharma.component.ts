@@ -26,14 +26,11 @@ export class PharmaComponent {
 
   selectedRow: any = {};
 
-  ngOnInit() {
-    if (sessionStorage.getItem('userIntId')) {
-      const userIntId = parseInt(
-        sessionStorage.getItem('userIntId') || '0',
-        10
-      );
+  userIntId: Number = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
 
-      this.pharmaService.getPharmaEntries(userIntId).subscribe({
+  ngOnInit() {
+    if (this.userIntId) {
+      this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
         next: (response) => {
           this.pharmaData = response.map((item: any, index: number) => ({
             Id: index + 1,
@@ -70,30 +67,31 @@ export class PharmaComponent {
   }
 
   handleDeleteEntry(row: any) {
-    const userIntId = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
     const pharmaIntId = parseInt(row.pharmaId || '0', 10);
-    this.pharmaService.deletePharmaEntry(userIntId, pharmaIntId).subscribe({
-      next: () => {
-        this.pharmaService.getPharmaEntries(userIntId).subscribe({
-          next: (response) => {
-            this.pharmaData = response.map((item: any, index: number) => ({
-              Id: index + 1,
-              Medicine: item.medicineName,
-              Company: item.companyName,
-              'Purchase Rate': item.purchaseRate,
-              Dealer: item.dealerName,
-              Expiry: item.expiryDate,
-              pharmaId: item.pharmaId,
-            }));
-          },
-          error: (err) => {
-            console.error('Failed to load pharma data', err);
-          },
-        });
-      },
-      error: (err) => {
-        console.error('Failed to delete pharma entry', err);
-      },
-    });
+    this.pharmaService
+      .deletePharmaEntry(this.userIntId, pharmaIntId)
+      .subscribe({
+        next: () => {
+          this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
+            next: (response) => {
+              this.pharmaData = response.map((item: any, index: number) => ({
+                Id: index + 1,
+                Medicine: item.medicineName,
+                Company: item.companyName,
+                'Purchase Rate': item.purchaseRate,
+                Dealer: item.dealerName,
+                Expiry: item.expiryDate,
+                pharmaId: item.pharmaId,
+              }));
+            },
+            error: (err) => {
+              console.error('Failed to load pharma data', err);
+            },
+          });
+        },
+        error: (err) => {
+          console.error('Failed to delete pharma entry', err);
+        },
+      });
   }
 }
