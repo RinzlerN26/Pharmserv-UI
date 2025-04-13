@@ -98,7 +98,6 @@ export class PharmaComponent {
       alert('Entry Updated Successfully.');
       modal.hide();
     }
-    console.log(this.selectedRow);
   }
 
   handleDeleteEntry(row: any) {
