@@ -9,7 +9,7 @@
       <tr *ngFor="let row of data">
         <td *ngFor="let column of displayedColumns">
           <ng-container *ngIf="column === 'Actions' && showDeleteUpdate; else cellData">
-            <div class="d-flex flex-row align-items-center justify-content-start">
+            <div class="d-flex flex-row align-items-start justify-content-start">
             <button class="btn btn-danger btn-sm mx-1" (click)="onDeleteClick(row)">Delete</button>
             <button class="btn btn-success btn-sm mx-1" (click)="onUpdateClick(row)">Update</button>
           </div>

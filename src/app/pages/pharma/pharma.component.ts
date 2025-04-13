@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
 import { PharmaService } from '../../services/pharma.service';
+import { FormsModule } from '@angular/forms';
+import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-pharma',
-  imports: [TableComponent],
+  imports: [TableComponent, FormsModule],
   templateUrl: './pharma.component.html',
   styleUrl: './pharma.component.scss',
 })
@@ -21,6 +23,8 @@ export class PharmaComponent {
   ];
 
   pharmaData: any[] = [];
+
+  selectedRow: any = {};
 
   ngOnInit() {
     if (sessionStorage.getItem('userIntId')) {
@@ -48,7 +52,23 @@ export class PharmaComponent {
     }
   }
 
-  handleUpdateEntry(row: any) {}
+  handleUpdateEntry(row: any) {
+    this.selectedRow = { ...row };
+    console.log(this.selectedRow);
+    const modalElement = document.getElementById('updateModal');
+    if (modalElement) {
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  updateEntry() {
+    const modalElement = document.getElementById('updateModal');
+    if (modalElement) {
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.hide();
+    }
+  }
 
   handleDeleteEntry(row: any) {
     const userIntId = parseInt(sessionStorage.getItem('userIntId') || '0', 10);

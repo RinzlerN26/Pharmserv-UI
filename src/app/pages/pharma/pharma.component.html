@@ -1,3 +1,71 @@
 <div class="pharma-container px-3 py-3">
 <app-table [displayedColumns]="columns" [data]="pharmaData" [showDeleteUpdate]="true" (delete)="handleDeleteEntry($event)" (update)="handleUpdateEntry($event)"></app-table>
+<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Entry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="medicineName" class="form-label">Medicine</label>
+              <input
+                type="text"
+                class="form-control"
+                id="medicineName"
+                [(ngModel)]="selectedRow.Medicine"
+                name="medicineName"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="companyName" class="form-label">Company</label>
+              <input
+                type="text"
+                class="form-control"
+                id="companyName"
+                [(ngModel)]="selectedRow.Company"
+                name="companyName"
+              />
+            </div>
+            <div class="mb-3">
+                <label for="companyName" class="form-label">Purchase Rate</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="purchaseRate"
+                  [(ngModel)]="selectedRow['Purchase Rate']"
+                  name="purchaseRate"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="companyName" class="form-label">Dealer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dealer"
+                  [(ngModel)]="selectedRow.Dealer"
+                  name="dealer"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="companyName" class="form-label">Expiry</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="expiry"
+                  [(ngModel)]="selectedRow.Expiry"
+                  name="expiry"
+                />
+              </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
