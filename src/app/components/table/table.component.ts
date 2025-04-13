@@ -10,10 +10,14 @@ import { CommonModule } from '@angular/common';
 export class TableComponent {
   @Input() displayedColumns: string[] = [];
   @Input() data: any[] = [];
-  @Input() showDelete: boolean = false;
+  @Input() showDeleteUpdate: boolean = false;
   @Output() delete = new EventEmitter<any>();
+  @Output() update = new EventEmitter<any>();
 
   onDeleteClick(row: any) {
     this.delete.emit(row);
+  }
+  onUpdateClick(row: any) {
+    this.update.emit(row);
   }
 }

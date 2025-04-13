@@ -17,7 +17,7 @@ export class PharmaComponent {
     'Purchase Rate',
     'Dealer',
     'Expiry',
-    'Delete Entry',
+    'Actions',
   ];
 
   pharmaData: any[] = [];
@@ -47,6 +47,8 @@ export class PharmaComponent {
       });
     }
   }
+
+  handleUpdateEntry(row: any) {}
 
   handleDeleteEntry(row: any) {
     const userIntId = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
