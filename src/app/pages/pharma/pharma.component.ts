@@ -75,7 +75,6 @@ export class PharmaComponent {
   }
 
   addEntry() {
-    console.log(this.newPharmaEntry);
     const modalElement = document.getElementById('addModal');
     if (modalElement) {
       const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
@@ -100,6 +99,15 @@ export class PharmaComponent {
                 Expiry: item.expiryDate,
                 pharmaId: item.pharmaId,
               }));
+              this.newPharmaEntry = {
+                Medicine: '',
+                Company: '',
+                'Purchase Rate': '',
+                Dealer: '',
+                Expiry: '',
+              };
+              alert('Entry Added Successfully.');
+              modal.hide();
             },
             error: (err) => {
               console.error('Failed to load pharma data', err);
@@ -110,8 +118,6 @@ export class PharmaComponent {
           console.error('Failed to add pharma entry', err);
         },
       });
-      alert('Entry Added Successfully.');
-      modal.hide();
     }
   }
 
@@ -151,6 +157,8 @@ export class PharmaComponent {
                   Expiry: item.expiryDate,
                   pharmaId: item.pharmaId,
                 }));
+                alert('Entry Updated Successfully.');
+                modal.hide();
               },
               error: (err) => {
                 console.error('Failed to load pharma data', err);
@@ -161,8 +169,6 @@ export class PharmaComponent {
             console.error('Failed to update pharma entry', err);
           },
         });
-      alert('Entry Updated Successfully.');
-      modal.hide();
     }
   }
 
