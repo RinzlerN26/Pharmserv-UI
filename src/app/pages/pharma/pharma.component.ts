@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
 import { PharmaService } from '../../services/pharma.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-pharma',
-  imports: [TableComponent, FormsModule],
+  imports: [TableComponent, CommonModule, FormsModule],
   templateUrl: './pharma.component.html',
   styleUrl: './pharma.component.scss',
 })
@@ -25,6 +26,22 @@ export class PharmaComponent {
   pharmaData: any[] = [];
 
   selectedRow: any = {};
+
+  newPharmaEntry: any = {
+    Medicine: '',
+    Company: '',
+    'Purchase Rate': '',
+    Dealer: '',
+    Expiry: '',
+  };
+
+  formFields: any = [
+    { label: 'Medicine', key: 'Medicine', type: 'text' },
+    { label: 'Company', key: 'Company', type: 'text' },
+    { label: 'Purchase Rate', key: 'Purchase Rate', type: 'text' },
+    { label: 'Dealer', key: 'Dealer', type: 'text' },
+    { label: 'Expiry', key: 'Expiry', type: 'text' },
+  ];
 
   userIntId: Number = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
 
@@ -47,6 +64,18 @@ export class PharmaComponent {
         },
       });
     }
+  }
+
+  handleAddEntry() {
+    const modalElement = document.getElementById('addModal');
+    if (modalElement) {
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  addEntry() {
+    console.log(this.newPharmaEntry);
   }
 
   handleUpdateEntry(row: any) {
