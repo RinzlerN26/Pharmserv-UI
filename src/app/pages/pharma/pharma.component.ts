@@ -107,7 +107,10 @@ export class PharmaComponent {
                 Expiry: '',
               };
               alert('Entry Added Successfully.');
-              modal.hide();
+              (document.activeElement as HTMLElement)?.blur();
+              setTimeout(() => {
+                modal.hide();
+              }, 10);
             },
             error: (err) => {
               console.error('Failed to load pharma data', err);
@@ -158,7 +161,10 @@ export class PharmaComponent {
                   pharmaId: item.pharmaId,
                 }));
                 alert('Entry Updated Successfully.');
-                modal.hide();
+                (document.activeElement as HTMLElement)?.blur();
+                setTimeout(() => {
+                  modal.hide();
+                }, 10);
               },
               error: (err) => {
                 console.error('Failed to load pharma data', err);
