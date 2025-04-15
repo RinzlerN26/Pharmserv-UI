@@ -76,6 +76,43 @@ export class PharmaComponent {
 
   addEntry() {
     console.log(this.newPharmaEntry);
+    const modalElement = document.getElementById('addModal');
+    if (modalElement) {
+      const modal = Modal.getInstance(modalElement) || new Modal(modalElement);
+      const pharmaDetails = {
+        medicineName: this.newPharmaEntry.Medicine,
+        companyName: this.newPharmaEntry.Company,
+        purchaseRate: parseInt(this.newPharmaEntry['Purchase Rate'] || '0', 10),
+        dealerName: this.newPharmaEntry.Dealer,
+        expiryDate: this.newPharmaEntry.Expiry,
+        userId: this.userIntId,
+      };
+      this.pharmaService.addPharmaEntry(pharmaDetails).subscribe({
+        next: () => {
+          this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
+            next: (response) => {
+              this.pharmaData = response.map((item: any, index: number) => ({
+                Id: index + 1,
+                Medicine: item.medicineName,
+                Company: item.companyName,
+                'Purchase Rate': item.purchaseRate,
+                Dealer: item.dealerName,
+                Expiry: item.expiryDate,
+                pharmaId: item.pharmaId,
+              }));
+            },
+            error: (err) => {
+              console.error('Failed to load pharma data', err);
+            },
+          });
+        },
+        error: (err) => {
+          console.error('Failed to add pharma entry', err);
+        },
+      });
+      alert('Entry Added Successfully.');
+      modal.hide();
+    }
   }
 
   handleUpdateEntry(row: any) {

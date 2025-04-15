@@ -17,6 +17,10 @@ export class PharmaService {
     );
   }
 
+  addPharmaEntry(pharmaDetails: Object) {
+    return this.http.post(`${this.apiUrl}/add-pharma-entry`, pharmaDetails);
+  }
+
   deletePharmaEntry(userIntId: Number, pharmaIntId: Number) {
     return this.http.delete(
       `${this.apiUrl}/delete-pharma-entry/${userIntId}/${pharmaIntId}`
