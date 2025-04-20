@@ -1,6 +1,6 @@
 # PharmservUI
 
-User Interface for pharmaceutical data entry software.
+User Interface for pharmaceutical entry software.
 
 ### Built With
 
