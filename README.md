@@ -31,5 +31,5 @@ User Interface for pharmaceutical data entry software.
 3. Run the application.
 
    ```sh
-   ng serve
+   npm start
    ```

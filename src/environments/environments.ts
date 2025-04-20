@@ -3,7 +3,7 @@ export const environment = {
   apiUrl: 'http://localhost:8080/ms',
 };
 
-export const environmentProd = {
-  production: true,
-  apiUrl: 'http://localhost/ms',
-};
+// export const environment = {
+//   production: true,
+//   apiUrl: 'http://localhost/ms',
+// };
