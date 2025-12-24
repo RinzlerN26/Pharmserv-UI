@@ -18,6 +18,8 @@ export class SigninComponent {
   userStringId = '';
   userPass = '';
   errorMessage = '';
+  userEmail = '';
+  userName = '';
   isSignup = false;
 
   constructor(
@@ -33,6 +35,14 @@ export class SigninComponent {
 
   showLogin() {
     this.isSignup = false;
+  }
+
+  clearFields() {
+    this.userStringId = '';
+    this.userPass = '';
+    this.errorMessage = '';
+    this.userEmail = '';
+    this.userName = '';
   }
 
   onLogin() {
@@ -70,14 +80,18 @@ export class SigninComponent {
 
   onSignUp() {
     this.errorMessage = '';
-    this.authService.signUp(this.userStringId, this.userPass).subscribe({
-      next: () => {
-        alert('Sign Up Successful!');
-      },
-      error: (err) => {
-        this.errorMessage = 'Sign Up Failed';
-        console.error('Login failed', err);
-      },
-    });
+    this.authService
+      .signUp(this.userStringId, this.userPass, this.userEmail, this.userName)
+      .subscribe({
+        next: () => {
+          alert('Sign Up Successful!');
+          this.clearFields();
+          this.showLogin();
+        },
+        error: (err) => {
+          this.errorMessage = 'Sign Up Failed';
+          console.error('Login failed', err);
+        },
+      });
   }
 }

@@ -1,19 +1,21 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" routerLink="/">PharmServ</a>
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item" *ngIf="isLoggedIn()">
-            <a class="nav-link active" aria-current="page" routerLink="/pharma">Pharmaceuticals</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" routerLink="/signin">Sign In</a>
-            <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)" href="#" title="Sign Out">{{ (userName$ | async) || 'Signed In' }}</a>
-          </li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" routerLink="/">PharmServ</a>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item" *ngIf="isLoggedIn()">
+          <a class="nav-link active" aria-current="page" routerLink="/pharma">Pharmaceuticals</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" *ngIf="!isUserIdPresent()" routerLink="/signin">Welcome</a>
+          <a class="nav-link active" *ngIf="isUserIdPresent()" (click)="logout($event)" href="#"
+            title="Sign Out">Welcome {{ (userName$ | async) || 'Signed In' }}</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

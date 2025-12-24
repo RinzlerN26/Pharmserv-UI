@@ -15,10 +15,17 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { userStringId, userPass });
   }
 
-  signUp(userStringId: string, userPass: string): Observable<any> {
+  signUp(
+    userStringId: string,
+    userPass: string,
+    userEmail: string,
+    userName: string
+  ): Observable<any> {
     return this.http.post(`${environment.apiUrl}/user/create-new-user`, {
-      userStringId,
+      userId: userStringId,
       userPass,
+      userEmail,
+      userName,
     });
   }
 
