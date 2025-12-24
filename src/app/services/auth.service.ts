@@ -15,6 +15,13 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { userStringId, userPass });
   }
 
+  signUp(userStringId: string, userPass: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/user/create-new-user`, {
+      userStringId,
+      userPass,
+    });
+  }
+
   setToken(token: string) {
     sessionStorage.setItem('token', token);
   }

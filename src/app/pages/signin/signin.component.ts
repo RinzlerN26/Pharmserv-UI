@@ -18,6 +18,7 @@ export class SigninComponent {
   userStringId = '';
   userPass = '';
   errorMessage = '';
+  isSignup = false;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,14 @@ export class SigninComponent {
     private router: Router,
     private store: Store<AppState>
   ) {}
+
+  showSignup() {
+    this.isSignup = true;
+  }
+
+  showLogin() {
+    this.isSignup = false;
+  }
 
   onLogin() {
     this.errorMessage = '';
@@ -54,6 +63,19 @@ export class SigninComponent {
       },
       error: (err) => {
         this.errorMessage = 'Invalid credentials';
+        console.error('Login failed', err);
+      },
+    });
+  }
+
+  onSignUp() {
+    this.errorMessage = '';
+    this.authService.signUp(this.userStringId, this.userPass).subscribe({
+      next: () => {
+        alert('Sign Up Successful!');
+      },
+      error: (err) => {
+        this.errorMessage = 'Sign Up Failed';
         console.error('Login failed', err);
       },
     });

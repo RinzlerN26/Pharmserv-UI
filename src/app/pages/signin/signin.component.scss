@@ -13,5 +13,13 @@
   }
   .sign-in-form {
     width: 20%;
+    .sign-up-container{
+      font-size: 12px;
+      .sign-up-btn{
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        cursor: pointer;
+      }
+    }
   }
 }
