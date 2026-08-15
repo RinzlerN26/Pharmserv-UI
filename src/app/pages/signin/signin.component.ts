@@ -67,7 +67,11 @@ export class SigninComponent {
                   userEmail: response?.userEmail,
                 }),
               );
-              this.router.navigate(['/pharma']);
+              if (role === 'ADMIN') {
+                this.router.navigate(['/admin']);
+              } else {
+                this.router.navigate(['/pharma']);
+              }
             },
             error: (err) => {
               console.error('Error Fetching User Details', err);
