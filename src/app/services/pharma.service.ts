@@ -12,7 +12,6 @@ export class PharmaService {
   constructor(private http: HttpClient) {}
 
   getPharmaEntries(
-    userIntId: number,
     page: number,
     size: number,
     search?: string,
@@ -26,29 +25,24 @@ export class PharmaService {
       params.search = search.trim();
     }
 
-    return this.http.get<any>(
-      `${this.apiUrl}/get-pharma-entries/${userIntId}`,
-      { params },
-    );
+    return this.http.get<any>(`${this.apiUrl}/get-user-pharma-entries`, {
+      params,
+    });
   }
 
   addPharmaEntry(pharmaDetails: Object) {
     return this.http.post(`${this.apiUrl}/add-pharma-entry`, pharmaDetails);
   }
 
-  deletePharmaEntry(userIntId: Number, pharmaIntId: Number) {
+  deletePharmaEntry(pharmaIntId: Number) {
     return this.http.delete(
-      `${this.apiUrl}/delete-pharma-entry/${userIntId}/${pharmaIntId}`,
+      `${this.apiUrl}/delete-pharma-entry/${pharmaIntId}`,
     );
   }
 
-  updatePharmaEntry(
-    userIntId: Number,
-    pharmaIntId: Number,
-    pharmaDetails: Object,
-  ) {
+  updatePharmaEntry(pharmaIntId: Number, pharmaDetails: Object) {
     return this.http.patch(
-      `${this.apiUrl}/update-pharma-entry/${userIntId}/${pharmaIntId}`,
+      `${this.apiUrl}/update-pharma-entry/${pharmaIntId}`,
       pharmaDetails,
     );
   }

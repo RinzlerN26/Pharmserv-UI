@@ -74,20 +74,9 @@ export class PharmaComponent {
     { label: 'Expiry', key: 'Expiry', type: 'text' },
   ];
 
-  userIntId: number = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
-
   loadPharmaData(): void {
-    if (!this.userIntId) {
-      return;
-    }
-
     this.pharmaService
-      .getPharmaEntries(
-        this.userIntId,
-        this.currentPage,
-        this.pageSize,
-        this.searchTerm,
-      )
+      .getPharmaEntries(this.currentPage, this.pageSize, this.searchTerm)
       .subscribe({
         next: (response) => {
           this.pharmaData = response.content.map(
@@ -134,7 +123,6 @@ export class PharmaComponent {
         purchaseRate: parseInt(this.newPharmaEntry['Purchase Rate'] || '0', 10),
         dealerName: this.newPharmaEntry.Dealer,
         expiryDate: this.newPharmaEntry.Expiry,
-        userId: this.userIntId,
       };
       this.pharmaService.addPharmaEntry(pharmaDetails).subscribe({
         next: () => {
@@ -174,7 +162,7 @@ export class PharmaComponent {
       };
       const pharmaIntId = parseInt(this.selectedRow.pharmaId || '0', 10);
       this.pharmaService
-        .updatePharmaEntry(this.userIntId, pharmaIntId, pharmaDetails)
+        .updatePharmaEntry(pharmaIntId, pharmaDetails)
         .subscribe({
           next: () => {
             this.loadPharmaData();
@@ -193,15 +181,13 @@ export class PharmaComponent {
 
   handleDeleteEntry(row: any) {
     const pharmaIntId = parseInt(row.pharmaId || '0', 10);
-    this.pharmaService
-      .deletePharmaEntry(this.userIntId, pharmaIntId)
-      .subscribe({
-        next: () => {
-          this.loadPharmaData();
-        },
-        error: (err) => {
-          console.error('Failed to delete pharma entry', err);
-        },
-      });
+    this.pharmaService.deletePharmaEntry(pharmaIntId).subscribe({
+      next: () => {
+        this.loadPharmaData();
+      },
+      error: (err) => {
+        console.error('Failed to delete pharma entry', err);
+      },
+    });
   }
 }
