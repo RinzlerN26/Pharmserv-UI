@@ -60,7 +60,6 @@ export class SigninComponent {
           const userStringId = sessionStorage.getItem('userId');
           this.userService.getUserDetails(userStringId).subscribe({
             next: (response) => {
-              sessionStorage.setItem('userIntId', response?.userIntId);
               this.store.dispatch(
                 setUserDetails({
                   userName: response?.userName,
