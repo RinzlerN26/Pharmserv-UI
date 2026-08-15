@@ -13,7 +13,19 @@ export class UserService {
 
   getUserDetails(userStringId: String | null): Observable<any> {
     return this.http.get<any>(
-      `${this.apiUrl}/get-user-details/${userStringId}`
+      `${this.apiUrl}/get-user-details/${userStringId}`,
     );
+  }
+  getAllUsers(page: number, size: number, search?: string): Observable<any> {
+    let params: any = {
+      page,
+      size,
+    };
+
+    if (search?.trim()) {
+      params.search = search.trim();
+    }
+
+    return this.http.get<any>(`${this.apiUrl}/get-all-users`, { params });
   }
 }
