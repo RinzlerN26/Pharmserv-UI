@@ -5,7 +5,7 @@ Angular frontend for the Pharmserv pharmaceutical entry management application.
 ## Built With
 
 - ![Angular](https://img.shields.io/badge/angular-0F0F11?style=for-the-badge&logo=angular&logoColor=FFFFFF)
-- Docker
+- ![Docker](https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=FFFFFF)
 - Node.js
 
 ## Prerequisites
