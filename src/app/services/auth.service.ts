@@ -83,4 +83,8 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
+
+  hasActiveSession(): boolean {
+    return !!this.getToken() && !!sessionStorage.getItem('userId');
+  }
 }
