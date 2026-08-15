@@ -1,39 +1,19 @@
-# Development 
-
-FROM node:22 AS development
+FROM node:22 AS build
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
 
-RUN npm install
+RUN npm ci
 
 COPY . .
 
-EXPOSE 4200
+RUN npm run build
 
-CMD ["npm", "start"]
+FROM alpine:3.20
 
-# Production 
+WORKDIR /build-output
 
-# FROM node:22 AS builder
+COPY --from=build /app/dist/pharmserv-ui/browser .
 
-# WORKDIR /app
-
-# COPY package*.json ./
-
-# RUN npm install
-
-# COPY . .
-
-# RUN npm run build
-
-# FROM node:22
-
-# WORKDIR /app
-
-# VOLUME ["/build-output"]
-
-# COPY --from=builder /app/dist/pharmserv-ui/browser /build-output
-
-# CMD sh -c "echo 'Build done. Sleeping...' && tail -f /dev/null"
+CMD ["sh", "-c", "echo 'Angular production build completed.' && tail -f /dev/null"]
