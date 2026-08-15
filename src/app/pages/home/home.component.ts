@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AppState } from '../../reducer';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,5 +14,12 @@ import { AppState } from '../../reducer';
 export class HomeComponent {
   title = 'PharmServ';
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private router: Router,
+  ) {}
+
+  navigateToSignin() {
+    this.router.navigate(['/pharma']);
+  }
 }

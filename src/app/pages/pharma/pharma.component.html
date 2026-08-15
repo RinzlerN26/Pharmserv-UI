@@ -1,37 +1,37 @@
 <div class="pharma-container px-3 py-3">
-<div class="d-flex flex-row justify-content-end"> 
-<button class="btn btn-primary btn-sm mx-1" (click)="handleAddEntry()">Add New Entry</button>
-</div>
-<app-table [displayedColumns]="columns" [data]="pharmaData" [showDeleteUpdate]="true" (delete)="handleDeleteEntry($event)" (update)="handleUpdateEntry($event)"></app-table>
-<div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add New Entry</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3" *ngFor="let field of formFields">
-            <label [for]="field.key" class="form-label">{{ field.label }}</label>
-            <input
-              [type]="field.type"
-              class="form-control"
-              [id]="field.key"
-              [name]="field.key"
-              [(ngModel)]="newPharmaEntry[field.key]"
-            />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary" (click)="addEntry()">Add</button>
+  <div class="d-flex flex-row justify-content-between align-items-center mb-3">
+    <app-search placeholder="Search medicine, company or dealer..." (searchChange)="onSearchChange($event)">
+    </app-search>
+    <button class="btn btn-primary btn-sm mx-1" (click)="handleAddEntry()">
+      Add New Entry
+    </button>
+  </div>
+  <app-table [displayedColumns]="columns" [data]="pharmaData" [showDeleteUpdate]="true"
+    (delete)="handleDeleteEntry($event)" (update)="handleUpdateEntry($event)"></app-table>
+  <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add New Entry</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3" *ngFor="let field of formFields">
+              <label [for]="field.key" class="form-label">{{ field.label }}</label>
+              <input [type]="field.type" class="form-control" [id]="field.key" [name]="field.key"
+                [(ngModel)]="newPharmaEntry[field.key]" />
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" (click)="addEntry()">Add</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+  <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -42,13 +42,8 @@
           <form>
             <div class="mb-3" *ngFor="let field of formFields">
               <label [for]="field.key" class="form-label">{{ field.label }}</label>
-              <input
-                [type]="field.type"
-                class="form-control"
-                [id]="field.key"
-                [name]="field.key"
-                [(ngModel)]="selectedRow[field.key]"
-              />
+              <input [type]="field.type" class="form-control" [id]="field.key" [name]="field.key"
+                [(ngModel)]="selectedRow[field.key]" />
             </div>
           </form>
         </div>

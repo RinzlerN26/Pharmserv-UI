@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
+import { SearchComponent } from '../../components/search/search.component';
 import { PharmaService } from '../../services/pharma.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-pharma',
-  imports: [TableComponent, CommonModule, FormsModule],
+  imports: [TableComponent, SearchComponent, CommonModule, FormsModule],
   templateUrl: './pharma.component.html',
   styleUrl: './pharma.component.scss',
 })
 export class PharmaComponent {
   constructor(private pharmaService: PharmaService) {}
+
+  searchTerm = '';
+
+  onSearchChange(searchTerm: string) {
+    this.searchTerm = searchTerm;
+
+    // Pagination integration will reset this to page 1.
+    // For now, this is just the emitted value.
+    console.log('Search:', searchTerm);
+  }
 
   columns: string[] = [
     'Id',

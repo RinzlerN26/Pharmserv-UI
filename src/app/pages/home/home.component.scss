@@ -69,6 +69,11 @@
     margin-top: 1.5rem;
   }
 
+  .start-text{
+    cursor: pointer;
+    border:1px solid;
+  }
+
   @media screen and (max-width: 650px) {
     .content {
       flex-direction: column;

@@ -1,0 +1,9 @@
+<div class="search-container position-relative">
+  <input type="text" class="form-control" [placeholder]="placeholder" [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange()" />
+
+  <button *ngIf="searchTerm" type="button" class="btn btn-sm search-clear" (click)="clearSearch()"
+    aria-label="Clear search">
+    &times;
+  </button>
+</div>
