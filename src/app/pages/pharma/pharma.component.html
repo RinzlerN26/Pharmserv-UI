@@ -8,6 +8,9 @@
   </div>
   <app-table [displayedColumns]="columns" [data]="pharmaData" [showDeleteUpdate]="true"
     (delete)="handleDeleteEntry($event)" (update)="handleUpdateEntry($event)"></app-table>
+  <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" [totalItems]="totalItems" [pageSize]="pageSize"
+    [pageSizeOptions]="[10, 20, 50]" (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)">
+  </app-pagination>
   <div class="modal fade" id="addModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">

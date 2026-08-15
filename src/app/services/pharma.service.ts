@@ -11,9 +11,24 @@ export class PharmaService {
 
   constructor(private http: HttpClient) {}
 
-  getPharmaEntries(userIntId: Number): Observable<any[]> {
-    return this.http.get<any[]>(
-      `${this.apiUrl}/get-pharma-entries/${userIntId}`
+  getPharmaEntries(
+    userIntId: number,
+    page: number,
+    size: number,
+    search?: string,
+  ): Observable<any> {
+    let params: any = {
+      page,
+      size,
+    };
+
+    if (search?.trim()) {
+      params.search = search.trim();
+    }
+
+    return this.http.get<any>(
+      `${this.apiUrl}/get-pharma-entries/${userIntId}`,
+      { params },
     );
   }
 
@@ -23,18 +38,18 @@ export class PharmaService {
 
   deletePharmaEntry(userIntId: Number, pharmaIntId: Number) {
     return this.http.delete(
-      `${this.apiUrl}/delete-pharma-entry/${userIntId}/${pharmaIntId}`
+      `${this.apiUrl}/delete-pharma-entry/${userIntId}/${pharmaIntId}`,
     );
   }
 
   updatePharmaEntry(
     userIntId: Number,
     pharmaIntId: Number,
-    pharmaDetails: Object
+    pharmaDetails: Object,
   ) {
     return this.http.patch(
       `${this.apiUrl}/update-pharma-entry/${userIntId}/${pharmaIntId}`,
-      pharmaDetails
+      pharmaDetails,
     );
   }
 }

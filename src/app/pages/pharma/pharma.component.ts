@@ -1,27 +1,47 @@
 import { Component } from '@angular/core';
 import { TableComponent } from '../../components/table/table.component';
 import { SearchComponent } from '../../components/search/search.component';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { PharmaService } from '../../services/pharma.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-pharma',
-  imports: [TableComponent, SearchComponent, CommonModule, FormsModule],
+  imports: [
+    TableComponent,
+    SearchComponent,
+    PaginationComponent,
+    CommonModule,
+    FormsModule,
+  ],
   templateUrl: './pharma.component.html',
   styleUrl: './pharma.component.scss',
 })
 export class PharmaComponent {
   constructor(private pharmaService: PharmaService) {}
 
-  searchTerm = '';
+  currentPage: number = 1;
+  pageSize: number = 10;
+  totalPages: number = 0;
+  totalItems: number = 0;
+  searchTerm: string = '';
 
-  onSearchChange(searchTerm: string) {
+  onSearchChange(searchTerm: string): void {
     this.searchTerm = searchTerm;
+    this.currentPage = 1;
+    this.loadPharmaData();
+  }
 
-    // Pagination integration will reset this to page 1.
-    // For now, this is just the emitted value.
-    console.log('Search:', searchTerm);
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    this.loadPharmaData();
+  }
+
+  onPageSizeChange(size: number): void {
+    this.pageSize = size;
+    this.currentPage = 1;
+    this.loadPharmaData();
   }
 
   columns: string[] = [
@@ -54,27 +74,46 @@ export class PharmaComponent {
     { label: 'Expiry', key: 'Expiry', type: 'text' },
   ];
 
-  userIntId: Number = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
+  userIntId: number = parseInt(sessionStorage.getItem('userIntId') || '0', 10);
 
-  ngOnInit() {
-    if (this.userIntId) {
-      this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
+  loadPharmaData(): void {
+    if (!this.userIntId) {
+      return;
+    }
+
+    this.pharmaService
+      .getPharmaEntries(
+        this.userIntId,
+        this.currentPage,
+        this.pageSize,
+        this.searchTerm,
+      )
+      .subscribe({
         next: (response) => {
-          this.pharmaData = response.map((item: any, index: number) => ({
-            Id: index + 1,
-            Medicine: item.medicineName,
-            Company: item.companyName,
-            'Purchase Rate': item.purchaseRate,
-            Dealer: item.dealerName,
-            Expiry: item.expiryDate,
-            pharmaId: item.pharmaId,
-          }));
+          this.pharmaData = response.content.map(
+            (item: any, index: number) => ({
+              Id: (this.currentPage - 1) * this.pageSize + index + 1,
+              Medicine: item.medicineName,
+              Company: item.companyName,
+              'Purchase Rate': item.purchaseRate,
+              Dealer: item.dealerName,
+              Expiry: item.expiryDate,
+              pharmaId: item.pharmaId,
+            }),
+          );
+
+          this.totalItems = response.totalElements;
+          this.totalPages = response.totalPages;
         },
+
         error: (err) => {
           console.error('Failed to load pharma data', err);
         },
       });
-    }
+  }
+
+  ngOnInit() {
+    this.loadPharmaData();
   }
 
   handleAddEntry() {
@@ -99,34 +138,12 @@ export class PharmaComponent {
       };
       this.pharmaService.addPharmaEntry(pharmaDetails).subscribe({
         next: () => {
-          this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
-            next: (response) => {
-              this.pharmaData = response.map((item: any, index: number) => ({
-                Id: index + 1,
-                Medicine: item.medicineName,
-                Company: item.companyName,
-                'Purchase Rate': item.purchaseRate,
-                Dealer: item.dealerName,
-                Expiry: item.expiryDate,
-                pharmaId: item.pharmaId,
-              }));
-              this.newPharmaEntry = {
-                Medicine: '',
-                Company: '',
-                'Purchase Rate': '',
-                Dealer: '',
-                Expiry: '',
-              };
-              alert('Entry Added Successfully.');
-              (document.activeElement as HTMLElement)?.blur();
-              setTimeout(() => {
-                modal.hide();
-              }, 10);
-            },
-            error: (err) => {
-              console.error('Failed to load pharma data', err);
-            },
-          });
+          this.loadPharmaData();
+          alert('Entry Added Successfully.');
+          (document.activeElement as HTMLElement)?.blur();
+          setTimeout(() => {
+            modal.hide();
+          }, 10);
         },
         error: (err) => {
           console.error('Failed to add pharma entry', err);
@@ -160,30 +177,15 @@ export class PharmaComponent {
         .updatePharmaEntry(this.userIntId, pharmaIntId, pharmaDetails)
         .subscribe({
           next: () => {
-            this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
-              next: (response) => {
-                this.pharmaData = response.map((item: any, index: number) => ({
-                  Id: index + 1,
-                  Medicine: item.medicineName,
-                  Company: item.companyName,
-                  'Purchase Rate': item.purchaseRate,
-                  Dealer: item.dealerName,
-                  Expiry: item.expiryDate,
-                  pharmaId: item.pharmaId,
-                }));
-                alert('Entry Updated Successfully.');
-                (document.activeElement as HTMLElement)?.blur();
-                setTimeout(() => {
-                  modal.hide();
-                }, 10);
-              },
-              error: (err) => {
-                console.error('Failed to load pharma data', err);
-              },
-            });
+            this.loadPharmaData();
+            alert('Entry Updated Successfully.');
+            (document.activeElement as HTMLElement)?.blur();
+            setTimeout(() => {
+              modal.hide();
+            }, 10);
           },
           error: (err) => {
-            console.error('Failed to update pharma entry', err);
+            console.error('Failed to add pharma entry', err);
           },
         });
     }
@@ -195,22 +197,7 @@ export class PharmaComponent {
       .deletePharmaEntry(this.userIntId, pharmaIntId)
       .subscribe({
         next: () => {
-          this.pharmaService.getPharmaEntries(this.userIntId).subscribe({
-            next: (response) => {
-              this.pharmaData = response.map((item: any, index: number) => ({
-                Id: index + 1,
-                Medicine: item.medicineName,
-                Company: item.companyName,
-                'Purchase Rate': item.purchaseRate,
-                Dealer: item.dealerName,
-                Expiry: item.expiryDate,
-                pharmaId: item.pharmaId,
-              }));
-            },
-            error: (err) => {
-              console.error('Failed to load pharma data', err);
-            },
-          });
+          this.loadPharmaData();
         },
         error: (err) => {
           console.error('Failed to delete pharma entry', err);
