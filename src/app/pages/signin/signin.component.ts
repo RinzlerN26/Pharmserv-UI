@@ -26,7 +26,7 @@ export class SigninComponent {
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
   ) {}
 
   showSignup() {
@@ -51,6 +51,10 @@ export class SigninComponent {
       next: (response) => {
         this.authService.setToken(response.token);
         this.authService.getUserIdFromToken();
+        const role = this.authService.getRoleFromToken();
+        if (role) {
+          sessionStorage.setItem('role', role);
+        }
         alert('Login Successful!');
         if (sessionStorage.getItem('userId')) {
           const userStringId = sessionStorage.getItem('userId');
@@ -61,7 +65,7 @@ export class SigninComponent {
                 setUserDetails({
                   userName: response?.userName,
                   userEmail: response?.userEmail,
-                })
+                }),
               );
               this.router.navigate(['/pharma']);
             },
